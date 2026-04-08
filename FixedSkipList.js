@@ -289,6 +289,7 @@ export class FixedSkipList {
    * @param {number} [limit]
    */
   *forwards(start = this.head, limit = this.size) {
+    if (this.size === 0) return;
     yield* iterate(this.next, start, this.tail, limit);
   }
 
@@ -297,10 +298,12 @@ export class FixedSkipList {
    * @param {number} [limit]
    */
   *backwards(start = this.tail, limit = this.size) {
+    if (this.size === 0) return;
     yield* iterate(this.prev, start, this.head, limit);
   }
 
   *[Symbol.iterator]() {
+    if (this.size === 0) return;
     yield* iterate(this.next, this.head, this.tail, this.size);
   }
 }
